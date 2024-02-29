@@ -39,8 +39,12 @@ function PassTypeToggle() {
 }
 
 function LoginCheck() {
-  if (document.getElementById("inputErrorNotice")) {
-    const item = document.getElementById("inputErrorNotice");
+  if (document.getElementById("inputErrorNotice_mail")) {
+    const item = document.getElementById("inputErrorNotice_mail");
+    item.remove();
+  }  
+  if (document.getElementById("inputErrorNotice_pass")) {
+    const item = document.getElementById("inputErrorNotice_pass");
     item.remove();
   }
 
@@ -49,32 +53,47 @@ function LoginCheck() {
 
   const inputErrorNotice = document.createElement("div");
   inputErrorNotice.classList.add("inputErrorNotice");
-  inputErrorNotice.id = "inputErrorNotice";
 
+  let errorNum = 0;
   if (mail === "") {
+    console.log("in1");
+    inputErrorNotice.id = "inputErrorNotice_mail";
+
     const insert_block = document.getElementById("insert_block_email");
     insert_block.classList.add("inputError");
     inputErrorNotice.innerText = "請輸入電子信箱";
     const email = document.getElementById("email");
     email.appendChild(inputErrorNotice);
-    return;
-  }
-  if (!~Array.from(mail).indexOf("@")) {
+    console.log("end1");
+    errorNum++;
+  } else if (!~Array.from(mail).indexOf("@")) {
+    console.log("in2");
+    inputErrorNotice.id = "inputErrorNotice_mail";
+
     const insert_block = document.getElementById("insert_block_email");
     insert_block.classList.add("inputError");
     inputErrorNotice.innerText = "請輸入正確格式(包含@)的電子信箱";
     const email = document.getElementById("email");
     email.appendChild(inputErrorNotice);
-    return;
+    errorNum++;
   }
-  if (pass === "" || pass.length < 8 || pass.length > 16) {
+  
+  if (pass.length < 8 || pass.length > 16) {
+    console.log("in3");
+    inputErrorNotice.id = "inputErrorNotice_pass";
+
     const insert_block = document.getElementById("insert_block_password");
     insert_block.classList.add("inputError");
     inputErrorNotice.innerText = "請輸入密碼(8位~16位)";
     const password = document.getElementById("password");
     password.appendChild(inputErrorNotice);
+    errorNum++;
+  }
+
+  if (errorNum !== 0) {
     return;
   }
+
   alert("登入成功");
 
   const remcheck = document.getElementById("remCheck");
@@ -92,7 +111,7 @@ function LoginCheck() {
 
 function mailRecheck() {
   const input = document.getElementById("inputMail");
-  const notice = document.getElementById("inputErrorNotice");
+  const notice = document.getElementById("inputErrorNotice_mail");
   const insert_block = document.getElementById("insert_block_email");
   if (~Array.from(input.value).indexOf("@") && notice) {
     insert_block.classList.remove("inputError");
@@ -100,12 +119,12 @@ function mailRecheck() {
   }
 }
 
-function passRecheck(e){
+function passRecheck(e) {
   const input = document.getElementById("inputPass");
-  const notice = document.getElementById("inputErrorNotice");
+  const notice = document.getElementById("inputErrorNotice_pass");
   const insert_block = document.getElementById("insert_block_password");
   console.log(input.value);
-  if(input.value.length >=8 && input.value.length <= 16 && notice){
+  if (input.value.length >= 8 && input.value.length <= 16 && notice) {
     console.log("in");
     notice.remove();
     insert_block.classList.remove("inputError");
