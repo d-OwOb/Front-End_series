@@ -101,6 +101,10 @@ body,
   font-size: 15px;
 }
 
+.info .inputError{
+  border: 1px solid red;
+}
+
 .info .insert_place {
   width: 100%;
   height: 100%;
@@ -119,7 +123,7 @@ body,
   margin-bottom: 6px;
 }
 
-.password .forgot {
+.addtional-function .forgot {
   font-size: 10px;
   color: #528dff;
   text-decoration: none;
@@ -213,6 +217,7 @@ body,
 }
 
 .addtional-function {
+  margin: 20px 0px;
   display: flex;
   justify-content: space-between;
 }
@@ -220,3 +225,29 @@ body,
 .remberMe {
   display: flex;
 }
+
+@keyframes noticeIn{
+  10%, 90%{transform: translateX(-1px);}
+  20%, 80%{transform: translateX(2px);}
+  30%, 70%{transform: translateX(-4px);}
+  40%, 60%{transform: translateX(4px);}
+  50%{transform: translateX(-4px);}
+}
+
+.inputErrorNotice{
+  animation: noticeIn 0.5s;
+  color: red;
+  position: absolute;
+  bottom: -16px;
+  right: 0px;
+  font-size: 12px;
+}
+
+.email{
+  position: relative;
+}
+
+.password{
+  position: relative;
+}
+
