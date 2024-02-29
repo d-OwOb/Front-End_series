@@ -42,7 +42,7 @@ function LoginCheck() {
   if (document.getElementById("inputErrorNotice_mail")) {
     const item = document.getElementById("inputErrorNotice_mail");
     item.remove();
-  }  
+  }
   if (document.getElementById("inputErrorNotice_pass")) {
     const item = document.getElementById("inputErrorNotice_pass");
     item.remove();
@@ -51,19 +51,21 @@ function LoginCheck() {
   const mail = document.getElementById("inputMail").value;
   const pass = document.getElementById("inputPass").value;
 
-  const inputErrorNotice = document.createElement("div");
-  inputErrorNotice.classList.add("inputErrorNotice");
+  const inputErrorNotice_mail = document.createElement("div");
+  const inputErrorNotice_pass = document.createElement("div");
+  inputErrorNotice_mail.classList.add("inputErrorNotice");
+  inputErrorNotice_pass.classList.add("inputErrorNotice");
 
   let errorNum = 0;
   if (mail === "") {
     console.log("in1");
-    inputErrorNotice.id = "inputErrorNotice_mail";
+    inputErrorNotice_mail.id = "inputErrorNotice_mail";
 
     const insert_block = document.getElementById("insert_block_email");
     insert_block.classList.add("inputError");
-    inputErrorNotice.innerText = "請輸入電子信箱";
+    inputErrorNotice_mail.innerText = "請輸入電子信箱";
     const email = document.getElementById("email");
-    email.appendChild(inputErrorNotice);
+    email.appendChild(inputErrorNotice_mail);
     console.log("end1");
     errorNum++;
   } else if (!~Array.from(mail).indexOf("@")) {
@@ -77,24 +79,22 @@ function LoginCheck() {
     email.appendChild(inputErrorNotice);
     errorNum++;
   }
-  
+
   if (pass.length < 8 || pass.length > 16) {
     console.log("in3");
-    inputErrorNotice.id = "inputErrorNotice_pass";
+    inputErrorNotice_pass.id = "inputErrorNotice_pass";
 
     const insert_block = document.getElementById("insert_block_password");
     insert_block.classList.add("inputError");
-    inputErrorNotice.innerText = "請輸入密碼(8位~16位)";
+    inputErrorNotice_pass.innerText = "請輸入密碼(8位~16位)";
     const password = document.getElementById("password");
-    password.appendChild(inputErrorNotice);
+    password.appendChild(inputErrorNotice_pass);
     errorNum++;
   }
 
   if (errorNum !== 0) {
     return;
   }
-
-  alert("登入成功");
 
   const remcheck = document.getElementById("remCheck");
   const info = {
@@ -106,6 +106,7 @@ function LoginCheck() {
   } else {
     deleteFromLocal();
   }
+  alert("登入成功");
   window.location.reload();
 }
 
